@@ -1,0 +1,24 @@
+[project]
+name = "direct"
+description = "Your environment description here"
+tags = ["placeholder-tag", "train", "eval"]
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "verifiers>=0.1.5.post0",
+    "datasets>=4.1.0",
+    "transformers>=4.41.2",
+    "accelerate>=0.33.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+packages = ["direct"]
+
+[tool.prime.environment]
+loader = "direct:load_environment"
+display_name = "DiReCT"
+visibility = "PUBLIC"
