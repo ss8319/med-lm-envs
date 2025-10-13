@@ -452,7 +452,7 @@ def load_environment(
     
     # Load benchmark data
     here = os.path.dirname(__file__)
-    benchmark_path = os.path.join(here, "LongHealth", "data", "benchmark_v5.json")
+    benchmark_path = os.path.join(here,"benchmark_v5.json")
     
     if not os.path.exists(benchmark_path):
         raise FileNotFoundError(
