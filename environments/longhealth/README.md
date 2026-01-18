@@ -74,6 +74,23 @@ vf-eval longhealth -m gpt-4.1-mini -n 10 -a '{"task": "task1", "max_context_toke
 | `info.has_answer_docs` | Whether answer-containing documents were included |
 | `info.num_docs` | Number of documents in the context |
 
+### Token Count Analysis
+
+**Total dataset size:** 221,796 tokens (using GPT-4.1-mini tokenizer)
+- **Average per patient:** 11,090 tokens
+- **Average per question:** 554 tokens
+- **Total characters:** 850,123 characters
+
+To get detailed token counts:
+
+```bash
+# Simple character-based estimates
+python count_tokens_simple.py
+
+# Exact GPT-4.1-mini tokenizer counts (requires tiktoken)
+python -c "import tiktoken; import json; tokenizer = tiktoken.encoding_for_model('gpt-4'); data = json.load(open('environments/longhealth/benchmark_v5.json')); total_tokens = sum(len(tokenizer.encode(text)) for patient in data.values() for text in patient['texts'].values()); print(f'Total tokens: {total_tokens:,}')"
+```
+
 ### Example Usage
 
 ```python
@@ -89,9 +106,4 @@ env = vf.load_environment(
     max_context_tokens=14000,
     shuffle_docs=True
 )
-
-# Run evaluation programmatically
-from openai import AsyncOpenAI
-client = AsyncOpenAI()
-results = await env.evaluate(client, "gpt-4.1-mini", num_examples=10)
 ```
